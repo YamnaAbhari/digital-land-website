@@ -1,0 +1,58 @@
+@import 'tailwindcss';
+
+.responsive-width-320 {
+  max-width: 320px ; 
+}
+@media (max-width: 1024px) {
+  .hide-below-1024 { display: none !important; }
+  .show-below-1024 { display: block !important; }
+}
+
+/* برای وقتی که صفحه بزرگ است (899px به بالا) */
+@media (min-width: 1025px) {
+  .hide-above-1024 { display: none !important; }
+  .show-above-1024 { display: block !important; }
+}
+
+@font-face {
+  font-family: 'samim';
+  src: url(assets/fonts/samimFont/Samim.ttf),format('ttf');
+}
+@theme{
+  --font-samim:"samim",sans-serif;
+  
+}
+
+
+
+    
+body::-webkit-scrollbar {
+  display: none; 
+}
+
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(100%); 
+      }
+      to {
+        transform: translateY(0); 
+      }
+    }
+        @keyframes slideDown {
+      from {
+        transform: translateY(0); 
+      }
+      to {
+        transform: translateY(100%); 
+      }
+    }
+
+
+    .animate-slideUp {
+      animation: slideUp 0.4s ease-out forwards; 
+    }
+    .animate-slideDown {
+      animation: slideDown 0.4s ease-out forwards; 
+    }
+
