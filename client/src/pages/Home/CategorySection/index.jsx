@@ -5,7 +5,6 @@ import CategorySkeleton from "./CategorySkeleton";
 
 export default function CategorySection() {
   const [categories, setCategories] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [loadingCount, setLoadingCount] = useState(6);
 
   useEffect(() => {
@@ -15,19 +14,20 @@ export default function CategorySection() {
         setCategories(result.data);
         setLoadingCount(result.data.length);
       }
-      setIsLoading(false);
     })();
   }, []);
 
-    if (isLoading) {
-        return (
-            <div className='mt-45 w-full grid sm:grid-cols-6 grid-cols-3 gap-6 px-3 sm:px-6'>
-                {Array.from({ length: loadingCount }).map((_, index) => (
-                    <CategorySkeleton key={`loading-${index}`} />
-                ))}
-            </div>
-        );
-    }
+  
+  // category skeleton
+  if (categories.length == 0) {
+    return (
+      <div className="mt-45 w-full grid sm:grid-cols-6 grid-cols-3 gap-6 px-3 sm:px-6">
+        {Array.from({ length: loadingCount }).map((_, index) => (
+          <CategorySkeleton key={`loading-${index}`} />
+        ))}
+      </div>
+    );
+  }
 
   const categoryItem = categories.map((cat) => {
     return (
@@ -45,4 +45,3 @@ export default function CategorySection() {
     </div>
   );
 }
-
