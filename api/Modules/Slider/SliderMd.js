@@ -7,8 +7,14 @@ const sliderSchema = new mongoose.Schema(
       trim: true,
     },
     image: {
-      type: String,
-      required: [true, "Slider Image is required"],
+      desktop: {
+        type: String,
+        required: [true, "Desktop image is required"],
+      },
+      mobile: {
+        type: String,
+        required: [true, "Mobile image is required"],
+      },
     },
       href: {
       type: String,
