@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 import DesktopNavbar from "./DesktopNavbar";
 import MobileNavbar from "./MobileNavbar";
 import MobileSearch from "./MobileSearch";
+import {handleResize } from "../../Utils/handleResize";
 
 export default function Navbar() {
   const [isMobile, setIsMobile] = useState(false);
@@ -40,13 +41,10 @@ export default function Navbar() {
   }, [isSearchPageVisible, isAnimating]); 
 
 
-  // resize the window
-  useEffect(() => {
-    const checkSize = () => setIsMobile(window.innerWidth < 1024);
-    checkSize();
-    window.addEventListener("resize", checkSize);
-    return () => window.removeEventListener("resize", checkSize);
-  }, []);
+  useEffect(()=>{
+  handleResize(setIsMobile,1024)
+  },[])
+ 
 
   return (
     <>
