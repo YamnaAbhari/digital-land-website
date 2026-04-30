@@ -1,65 +1,12 @@
-
-
-
-
-
-
 import React, { useEffect, useRef, useState } from "react";
+import { categories } from "../../../../data/categories";
 
 export default function MegaMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [groupHoverActive, setGroupHoverActive] = useState(false);
   const timeoutRef = useRef(null);
 
-  const categories = [
-    {
-      id: 1,
-      name: "انتخاب گوشی",
-      items: ["گوشی اپل(ایفون)", "گوشی سامسونگ", "گوشی شیائومی"],
-    },
-    {
-      id: 2,
-      name: "انتخاب لپ تاپ",
-      items: ["ایسوس", "مک بوک", "سرفیس", "لنوو", "دل", "اچ پی", "ایسر"],
-    },
-    {
-      id: 3,
-      name: "انتخاب تبلت و ایپد",
-      items: ["اپل", "سامسونگ", "بلک ویو", "شیائومی", "تی سی ال"],
-    },
-    {
-      id: 4,
-      name: "انتخاب ایر پاد",
-      items: [
-        "سامسونگ",
-        "اپل",
-        "کیو سی وای",
-        "تی سی اچ",
-        "انکر",
-        "اپولو",
-        "ناتینگ",
-      ],
-    },
-    {
-      id: 5,
-      name: "انتخاب اسپیکر",
-      items: [
-        "جی بی ال",
-        "جدل",
-        "تسکو",
-        "انکر",
-        "کینگ استار",
-        "نورث پلاس",
-        "هیسکا",
-      ],
-    },
-    {
-      id: 6,
-      name: "انتخاب ساعت هوشمند",
-      items: ["اپل", "سامسونگ", "تی سی اچ", "شیائومی", "سونتی می"],
-    },
-  ];
-
+  
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";

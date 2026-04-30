@@ -8,6 +8,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import MainSliderSkeleton from "./MainSliderSkeleton";
 
 export default function MainSlider() {
   const [slider, setSlider] = useState([]);
@@ -27,11 +28,7 @@ export default function MainSlider() {
     handleResize(setIsMobile, 564);
   }, []);
 
-  if (slider.length === 0) {
-    return (
-      <div className="w-full h-[40vh] bg-gray-200 animate-pulse rounded-lg" />
-    );
-  }
+  if (slider.length === 0) return <MainSliderSkeleton/>
 
   const sliderItems = slider.map((sl) => (
     <SwiperSlide key={sl._id} onClick={() => navigate(sl.href)}>
@@ -59,7 +56,7 @@ export default function MainSlider() {
       }}
     >
       <Swiper
-        className={`w-full ${isMobile ? "h-[22vh]" : ""} sm:h-[36vh] lg:h-[42vh] `}
+        className={`w-full h-[22vh] sm:h-[36vh] lg:h-[42vh] `}
         modules={[Pagination, Autoplay]}
         spaceBetween={10}
         slidesPerView={1}
