@@ -18,9 +18,13 @@
   font-family: 'samim';
   src: url(assets/fonts/samimFont/Samim.ttf),format('ttf');
 }
+@font-face {
+  font-family: 'sina';
+  src: url(assets/fonts/sinaFont/Sina.ttf),format('ttf');
+}
 @theme{
   --font-samim:"samim",sans-serif;
-  
+  --font-sina:'sina',sans-serif;
 }
 
 
@@ -56,39 +60,3 @@ body::-webkit-scrollbar {
       animation: slideDown 0.4s ease-out forwards; 
     }
 
-/* .swiper-button-next,.swiper-button-prev {
-  @apply absolute bottom-1 top-auto bg-black/50 text-white rounded-full w-10 h-10 flex items-center justify-center;
-} */
-
-/* جابجایی سمت راست */
-/* .swiper-button-prev {
-  position: absolute !important;
-  display: flex !important;
-  align-items: end !important;
-  right: 20px !important;
-  color: red !important;
-  font-size: 12px !important;
-  width: 28px !important;
-  rotate: calc(180) !important;
-  bottom: 12px !important;
-  margin-bottom: 45px !important;
-}
-
-.swiper-button-next {
- position: absolute !important;
-  display: flex !important;
-  align-items: end !important;
-  right: 60px !important;
-  color: red !important;
-  font-size: 12px !important;
-  width: 28px !important;
-  rotate: calc(180) !important;
-  bottom: 12px !important;
-  margin-bottom: 45px !important;
-}
-
-/* هاور زیباتر */
-/* .swiper-button-next:hover,
-.swiper-button-prev:hover {
-  @apply bg-black/70;
-}  */
