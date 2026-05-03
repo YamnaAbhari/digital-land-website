@@ -84,6 +84,7 @@ import AuthLayout from "../Layout/AuthLayout";
 import MobileSearch from "../Components/Navbar/MobileSearch";
 import ProfileLayout from "../Layout/ProfileLayout";
 import Mobilecategory from "../pages/MobileCategory";
+import AllDiscountProducts from "../pages/AllDiscountProducts";
   const router = createBrowserRouter([
       {
         element: <Layout />,
@@ -109,6 +110,10 @@ import Mobilecategory from "../pages/MobileCategory";
           {
             path: "products-details/:id/:name",
             element: <ProductDetails />,
+          },
+            {
+            path: "incredible-offers",
+            element: <AllDiscountProducts />,
           },
           {
             path:"search",

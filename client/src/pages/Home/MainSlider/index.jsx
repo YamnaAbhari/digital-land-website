@@ -47,7 +47,7 @@ export default function MainSlider() {
   return (
     // swiper slide
     <div
-      className={`relative w-full z-10  sm:my-25 lg:my-33 xl:my-35 my-23`}
+      className={`relative w-full z-10  sm:mt-25 lg:mt-33 xl:mt-35 mt-23`}
       onMouseEnter={() => {
         setNavigationBtnVisibel(true);
       }}
