@@ -108,7 +108,7 @@ import AllDiscountProducts from "../pages/AllDiscountProducts";
             element: <Products />,
           },
           {
-            path: "products-details/:id/:name",
+            path: "product-details/:id/:name",
             element: <ProductDetails />,
           },
             {

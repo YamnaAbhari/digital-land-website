@@ -7,7 +7,7 @@ export default function CategoryCard({ id, title, image }) {
     <div
       className="w-full flex flex-col justify-center items-center gap-4 cursor-pointer"
       onClick={() => {
-        navigate(`/categories/${id}/${title.replaceAll(" ", "-")}`);
+        navigate(`/products/${id}/${title.replaceAll(" ", "-")}`);
       }}
     >
       {image ? (

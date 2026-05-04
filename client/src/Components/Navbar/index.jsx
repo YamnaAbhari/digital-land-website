@@ -9,7 +9,7 @@ import MobileSearch from "./MobileSearch";
 import {handleResize } from "../../Utils/handleResize";
 
 export default function Navbar() {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth<1024);
   const [isSearchPageVisible, setIsSearchPageVisible] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -44,6 +44,7 @@ export default function Navbar() {
   useEffect(()=>{
   handleResize(setIsMobile,1024)
   },[])
+   
  
 
   return (

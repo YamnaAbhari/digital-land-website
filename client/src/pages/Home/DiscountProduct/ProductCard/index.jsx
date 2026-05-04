@@ -32,7 +32,7 @@ export default function ProductCard({
             {formattedPrice(priceAfterDiscount)}{' '}<span className="text-[10px]">تومان</span>
           </span>
         ) : (
-          <span className="font-samim text-[16px] font-bold">{price}تومان</span>
+          <span className="font-samim text-[12px] font-bold">{price}تومان</span>
         )}
         {discountPercent > 0 && (
           <span className="px-2 py-0.5 bg-teal-600 text-[10px] font-samim text-white rounded-lg">
