@@ -1,10 +1,8 @@
 import React from 'react'
 
-export default function MobileProductCardSkeletom() {
+export default function MobileDiscountCardSkeleton() {
   return (
-
-    // <div className="flex items-center justify-center w-full h-47.5">
-  <div className="flex items-center justify-center gap-2 w-full h-47.5 bg-white  py-3 px-3 shadow-sm border-b border-gray-300 overflow-hidden animate-pulse">
+    <div className="flex items-center justify-center gap-2 w-full h-47.5 bg-white  py-3 px-3 shadow-sm border-b border-gray-300 overflow-hidden animate-pulse">
     
     {/* بخش تصویر محصول (سمت چپ) */}
     <div className="w-28 h-28 shrink-0 bg-gray-200/80 m-2 ">
@@ -28,7 +26,5 @@ export default function MobileProductCardSkeletom() {
 
     </div>
   </div>
-// </div>
-
   )
 }

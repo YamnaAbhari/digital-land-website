@@ -28,15 +28,15 @@ export default function ProductDetails() {
       const p = res.data[0];
       setProduct(p);
 
-      p.productVariantIds?.forEach((item) => {
+      p?.productVariantIds?.forEach((item) => {
         if (item._id.toString() === id.toString()) {
           setProductVariant(item);
         }
       });
 
       // fallback: select first variant if none matched id
-      if (!productVariant && p.productVariantIds?.length) {
-        setProductVariant(p.productVariantIds[0]);
+      if (!productVariant && p?.productVariantIds?.length) {
+        setProductVariant(p?.productVariantIds[0]);
       }
     })();
   }, [id]);

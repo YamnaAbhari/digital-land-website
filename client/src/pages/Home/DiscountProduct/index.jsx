@@ -16,6 +16,7 @@ export default function Discountproduct() {
   const navigate = useNavigate();
   const swiperRef = useRef(null);
 
+
   useEffect(() => {
     (async () => {
       const result = await FetchData(
@@ -30,17 +31,16 @@ export default function Discountproduct() {
     handleResize(setIsMobile, 764);
   }, []);
 
-  // if (discountProducts.length == 0) {
-  //   {
+
   const skeleton = Array.from({ length: 12 }).map((_, index) => (
     <SwiperSlide key={index} style={{ width: "160px", height: "256px" }}>
       <DiscountSkeleton />
     </SwiperSlide>
   ));
 
-  // }
 
-  const discountItems = discountProducts.map((sl) => {
+
+  const discountItems = discountProducts?.map((sl) => {
     return (
       <SwiperSlide key={sl._id} style={{ width: "160px", height: "256px" }}>
         <ProductCard
@@ -49,7 +49,7 @@ export default function Discountproduct() {
           price={sl.price}
           priceAfterDiscount={sl.priceAfterDiscount}
           discountPercent={sl.discountPercent}
-          id={sl._id}
+          id={sl?.productId._id}
           isMobileSize={isMobile}
         />
       </SwiperSlide>

@@ -1,35 +1,16 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { colorMap } from "../../../../data/colorMap";
+import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
-export default function MobileProductCard({
-  variantIds,
-  image,
+export default function MobileProductCard({  image,
   title,
   avgRating,
   price,
   priceAfterDiscount,
   discountPercent,
-  id,
-}) {
-  const navigate = useNavigate();
+  id,}) {
+      const navigate = useNavigate();
   const formattedPrice = (value) => {
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  };
-
-  const colorItems = () => {
-    if (!variantIds || variantIds.length === 0) return null;
-    const renderColors = variantIds.map((vr, index) => {
-      return (
-        <div
-          key={index}
-          title={vr.value}
-          className={`w-2 h-2 rounded-full ring ring-gray-300`}
-          style={{ background: colorMap[vr.value] || [vr.value] }}
-        ></div>
-      );
-    });
-    return renderColors;
   };
   return (
     <div
@@ -45,7 +26,7 @@ export default function MobileProductCard({
             alt={title}
             className="w-50 h-35"
           ></img>
-          <div className="flex gap-1 ">{colorItems()}</div>
+         
         </div>
 
 <div className="w-full flex h-full items-end mb-2">
@@ -53,9 +34,7 @@ export default function MobileProductCard({
           <h2 className="font-samim text-sm sm:text-[16px]  text-gray-800 font-bold">
             {title}
           </h2>
-          <p className="font-samim text-sm font-medium mt-4 text-left">
-            {avgRating} ⭐
-          </p>
+        
 
           <div className="w-full flex flex-row-reverse justify-between items-center mt-2">
             {discountPercent > 0 ? (
@@ -88,11 +67,5 @@ export default function MobileProductCard({
         </div>
       </div>
     </div>
-
-
-
-
-
-
-  );
+  )
 }
