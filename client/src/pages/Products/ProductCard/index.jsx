@@ -13,15 +13,7 @@ export default function ProductCard({
   discountPercent,
   id,
 }) {
-  // const [isMobile, setIsMobile] = useState(false);
-  // useEffect(() => {
-  //   handleResize(setIsMobile, 640);
-  // }, []);
 
-  // const [isMobile,setIsMobile]=useState(false)
-  // useEffect(()=>{
-  //   handleResize(setIsMobile,640)
-  // },[])
 
   const [isMobile,setIsMobile]=useState(window.innerWidth<640)
   

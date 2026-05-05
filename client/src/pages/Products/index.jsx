@@ -1,4 +1,3 @@
-
 import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import FetchData from "../../Utils/FetchData";
@@ -6,6 +5,8 @@ import ProductCard from "./ProductCard";
 import { handleResize } from "../../Utils/handleResize";
 import MobileProductCardSkeletom from "./ProductCard/MobileProductCard/MobileProductCardSkeletom";
 import DesktopProductCardSkeleton from "./ProductCard/DesktopProductCard/desktopProductCardSkeleton";
+import SortIcon from "../../assets/svg/SortIcon";
+import ProductsSort from "./ProductsSort";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -14,24 +15,24 @@ export default function Products() {
   const [price, setPrice] = useState([0, 500000000]);
   const [sort, setSort] = useState("-createdAt");
   const { categoryId } = useParams();
-  const [isLoading,setIsLoading]=useState(true)
-    const [isMobileSize, setIsMobileSize] = useState(window.innerWidth<640)
-    const [hi,setHi]=useState(window.innerWidth<1024)
+  const [isLoading, setIsLoading] = useState(true);
+  const [isMobileSize, setIsMobileSize] = useState(window.innerWidth < 640);
+  const [hideFilterBox, setHideFilterBox] = useState(window.innerWidth < 1024);
   const itemsPerPage = 20;
 
   const totalPages = Math.ceil(productsCount / itemsPerPage);
 
   useEffect(() => {
     handleResize(setIsMobileSize, 640);
-
   }, []);
 
-   useEffect(() => {
-    handleResize(setHi, 1024);
-
+  useEffect(() => {
+    handleResize(setHideFilterBox, 1024);
   }, []);
 
-
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  },[])
   useEffect(() => {
     (async () => {
       const result = await FetchData(
@@ -39,7 +40,7 @@ export default function Products() {
       );
       setProducts(result.data);
       setProductsCount(result.count);
-      setIsLoading(false)
+      setIsLoading(false);
     })();
   }, [page, price, categoryId, sort]);
 
@@ -59,21 +60,27 @@ export default function Products() {
     );
   });
 
- 
-  const skeleton = Array.from({ length: 20 }, (_, index) => (
-  isMobileSize 
-    ? <MobileProductCardSkeletom key={index} /> 
-    : <DesktopProductCardSkeleton key={index} />
-));
+  const skeleton = Array.from({ length: 20 }, (_, index) =>
+    isMobileSize ? (
+      <MobileProductCardSkeletom key={index} />
+    ) : (
+      <DesktopProductCardSkeleton key={index} />
+    ),
+  );
   return (
     <div className="mt-45 mb-25">
+      
       <div className="flex sm:px-3 lg:px-6 ">
-        {!hi &&  (
-          <div className="w-90 h-100 bg-amber-100">dfdfdf</div>
-        )}
-        <div className="w-full grid  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
-          {isLoading?skeleton:productCards}
-          
+        {!hideFilterBox && <div className="w-90 h-100 bg-amber-100">dfdfdf</div>}
+
+        <div className="w-full flex flex-col gap-2 px-3">
+          {/* Sort section */}
+          <div className="">
+          <ProductsSort sort={sort} setSort={setSort}/>
+          </div>
+        <div className="w-full grid  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  border-t border-t-gray-200">
+          {isLoading ? skeleton : productCards}
+        </div>
         </div>
       </div>
       {/* Pagination */}
@@ -100,21 +107,10 @@ export default function Products() {
           </button>
         </div>
       )}
+   
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import React, { useEffect, useState } from "react";
 // import { useParams } from "react-router-dom";
@@ -130,16 +126,16 @@ export default function Products() {
 //   const [price, setPrice] = useState([0, 500000000]);
 //   const [sort, setSort] = useState("-createdAt");
 //   const { categoryId } = useParams();
-  
+
 //   const [isLoading, setIsLoading] = useState(true);
-  
+
 //   // نکته کلیدی: مقدار اولیه استیت رو مستقیماً از window.innerWidth می‌گیریم
 //   // اگر عرض صفحه کمتر از 1024 باشد، فیلتر مخفی است (true)
 //   // اگر بزرگتر باشد، فیلتر نمایش داده می‌شود (false)
 //   const [hideFilterBox, setHideFilterBox] = useState(window.innerWidth < 1024);
-  
+
 //   // برای انتخاب اسکلتون مناسب (موبایل یا دسکتاپ)
-  // const [isMobileSize, setIsMobileSize] = useState(window.innerWidth < 640);
+// const [isMobileSize, setIsMobileSize] = useState(window.innerWidth < 640);
 
 //   const itemsPerPage = 20;
 //   const totalPages = Math.ceil(productsCount / itemsPerPage);
@@ -196,7 +192,7 @@ export default function Products() {
 //   return (
 //     <div className="mt-45 mb-25">
 //       <div className="flex sm:px-3 lg:px-6">
-        
+
 //         {/* حالا این شرط همیشه درست کار می‌کنه چون مقدار اولیه استیت درست ست شده */}
 //         {!hideFilterBox && (
 //           <div className="w-90 h-100 bg-amber-100 flex-shrink-0">
@@ -204,7 +200,7 @@ export default function Products() {
 //             dfdfdf
 //           </div>
 //         )}
-        
+
 //         <div className={`w-full ${isMobileSize?"flex flex-col":"grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"}`}>
 //           {isLoading ? skeleton : productCards}
 //         </div>
