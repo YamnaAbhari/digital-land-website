@@ -60,3 +60,9 @@ body::-webkit-scrollbar {
       animation: slideDown 0.4s ease-out forwards; 
     }
 
+    .filter-Box-animate-slideUp{
+      animation: slideUp 0.2s ease-out forwards; 
+    }
+     .filter-Box-animate-slieDown{
+      animation: slideDown 0.2s ease-out forwards; 
+    }

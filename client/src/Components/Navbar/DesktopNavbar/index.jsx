@@ -10,8 +10,63 @@ export default function DesktopNavbar() {
   const { token } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
+  const [searchInp, setSearchInp] = useState("");
+  const [searchResult, setSearchResult] = useState();
+
   const [isSubNavVisible, setIsSubNavVisible] = useState(true);
   const lastScrollY = useRef(0);
+
+    useEffect(() => {
+    window.addEventListener('click',(e)=>{
+      if(!e.target.closest('.searchInp')){
+        setSearchInp('')
+        setSearchResult(null)
+      }
+    })
+    if (searchInp.length < 3) return;
+    (async () => {
+      const result = await FetchData(`search?q=${searchInp}`);
+      if (!result.success) {
+        setSearchResult("notFound");
+      } else {
+        setSearchResult(result.data);
+      }
+    })();
+  }, [searchInp]);
+
+    const categoryItems = searchResult?.categories?.map((item) => (
+    <div
+      key={item._id}
+      className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 cursor-pointer transition"
+      onClick={() =>
+        navigate(`/products/${item._id}/${item.title.replaceAll(" ", "-")}`)
+      }
+    >
+      <img
+        src={import.meta.env.VITE_BASE_FILE + item.image}
+        className="w-10 h-10 rounded-md object-cover"
+      />
+      <span className="text-sm font-medium text-gray-700">{item.title}</span>
+    </div>
+  ));
+
+  const productsItems = searchResult?.products?.map((item) => (
+    <div
+      key={item._id}
+      className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 cursor-pointer transition"
+      onClick={() =>
+        navigate(
+          `/product-details/${item._id}/${item.title.replaceAll(" ", "-")}`
+        )
+      }
+    >
+      <img
+        src={import.meta.env.VITE_BASE_FILE + item.images[0]}
+        className="w-10 h-10 rounded-md object-cover"
+      />
+      <span className="text-sm font-medium text-gray-700">{item.title}</span>
+    </div>
+  ));
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,9 +113,44 @@ export default function DesktopNavbar() {
                 className="w-150 bg-[#f0f0f1] h-11  rounded-full pr-10 pl-4 placeholder:text-[15px] outline-0 focus:ring-1 focus:ring-gray-300 transition-all font-samim"
               />
             </div>
-            <div className="absolute bg-gray-200 w-full h-25 rounded-md shadow-md hidden">
+            {/* <div className="absolute bg-gray-200 w-full h-25 rounded-md shadow-md hidden"> */}
               {/* search results */}
-            </div>
+               {searchInp && (
+              <div className="absolute top-12 w-full bg-white border border-gray-200 shadow-xl rounded-xl p-3 max-h-72 overflow-y-auto animate-fadeIn">
+
+                {searchInp.length < 3 && (
+                  <p className="text-sm text-gray-400">Min 3 characters</p>
+                )}
+
+                {searchInp.length >= 3 && !searchResult && (
+                  <p className="text-sm text-gray-400">Searching...</p>
+                )}
+
+                {categoryItems?.length > 0 && (
+                  <>
+                    <p className="text-xs text-gray-400 mt-2 mb-1">
+                      Categories
+                    </p>
+                    {categoryItems}
+                  </>
+                )}
+
+                {productsItems?.length > 0 && (
+                  <>
+                    <p className="text-xs text-gray-400 mt-3 mb-1">
+                      Products
+                    </p>
+                    {productsItems}
+                  </>
+                )}
+
+                {searchResult === "notFound" && (
+                  <p className="text-sm text-gray-400">No results found</p>
+                )}
+              </div>
+            )}
+            {/* </div> */}
+
             <div className="absolute top-1/2 -translate-y-1/2 px-4">
               <BiSearch className="text-xl text-gray-500" />
             </div>

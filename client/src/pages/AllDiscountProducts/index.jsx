@@ -52,7 +52,7 @@ const totalPages = Math.ceil(productsCount / itemsPerPage);
   })
 
   return (
-    <div className='mt-40 mb-10'>
+    <div className='mt-20 lg:mt-35 mb-10'>
     <div className='w-full grid  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:px-3 lg:px-6'>
       {isLoading?skeleton:discountItems}
     </div>
