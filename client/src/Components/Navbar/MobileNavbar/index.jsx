@@ -8,13 +8,14 @@ import { Link, useNavigate } from "react-router-dom";
 export default function MobileNavbar({ onOpenSearch }) {
   const { token } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+ 
   return (
     <div>
       <nav className="fixed top-0 left-0 w-full h-17 flex justify-between items-center gap-2 bg-white px-3 z-40">
         <div className="relative w-full cursor-pointer" onClick={onOpenSearch}>
           <input
             type="text"
-            readOnly
+            readOnly={true}
             placeholder="جستجو در دیجیتال لند"
             className="w-full bg-[#f0f0f1] h-11 rounded-full pr-10 pl-4 placeholder:text-[15px] outline-0 focus:ring-1 focus:ring-gray-300 transition-all font-samim " // pointer-events-none کلیک را غیرفعال می‌کند
           />
@@ -22,6 +23,9 @@ export default function MobileNavbar({ onOpenSearch }) {
             <BiSearch className="text-xl text-gray-500" />
           </div>
         </div>
+
+         
+         
 
         {/* all products */}
         <Link to={"/products/all/all-category"}>

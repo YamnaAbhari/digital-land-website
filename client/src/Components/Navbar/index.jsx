@@ -23,7 +23,7 @@ export default function Navbar() {
     setIsAnimating(false);
     setTimeout(() => {
       setIsSearchPageVisible(false);
-    }, 400);
+    }, 300);
   };
 
 
@@ -54,7 +54,7 @@ export default function Navbar() {
       ) : (
         <DesktopNavbar />
       )}
-      {isSearchPageVisible && (
+      {isSearchPageVisible && isMobile && (
         <MobileSearch
           onClose={handleCloseSearch}
           isSearchPageVisible={isAnimating}

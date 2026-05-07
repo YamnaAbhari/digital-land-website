@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import MegaMenu from "./MegaMenu";
-
+import FetchData from "../../../Utils/FetchData";
+import { NoScroll } from "../../../Utils/NoScroll";
 
 export default function DesktopNavbar() {
   const { token } = useSelector((state) => state.auth);
@@ -12,20 +13,16 @@ export default function DesktopNavbar() {
 
   const [searchInp, setSearchInp] = useState("");
   const [searchResult, setSearchResult] = useState();
-
+  const [loading, setLoading] = useState(false);
   const [isSubNavVisible, setIsSubNavVisible] = useState(true);
   const lastScrollY = useRef(0);
 
-    useEffect(() => {
-    window.addEventListener('click',(e)=>{
-      if(!e.target.closest('.searchInp')){
-        setSearchInp('')
-        setSearchResult(null)
-      }
-    })
-    if (searchInp.length < 3) return;
+  useEffect(() => {
     (async () => {
+      if (searchInp.length < 3) return;
+      setLoading(true);
       const result = await FetchData(`search?q=${searchInp}`);
+      setLoading(false);
       if (!result.success) {
         setSearchResult("notFound");
       } else {
@@ -34,7 +31,20 @@ export default function DesktopNavbar() {
     })();
   }, [searchInp]);
 
-    const categoryItems = searchResult?.categories?.map((item) => (
+  useEffect(() => {
+    window.addEventListener("click", (e) => {
+      if (!e.target.closest(".searchInp")) {
+        setSearchInp("");
+        setSearchResult(null);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    NoScroll(searchResult);
+  }, [searchResult]);
+
+  const categoryItems = searchResult?.categories?.map((item) => (
     <div
       key={item._id}
       className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 cursor-pointer transition"
@@ -56,7 +66,7 @@ export default function DesktopNavbar() {
       className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 cursor-pointer transition"
       onClick={() =>
         navigate(
-          `/product-details/${item._id}/${item.title.replaceAll(" ", "-")}`
+          `/product-details/${item._id}/${item.title.replaceAll(" ", "-")}`,
         )
       }
     >
@@ -104,52 +114,52 @@ export default function DesktopNavbar() {
             </Link>
           </div>
 
-          {/* Search */}
-          <div className="relative px-4 w-150 ">
+         {/* search */}
+          <div className="relative px-4 w-150 searchBox">
             <div>
               <input
                 type="text"
+                value={searchInp}
+                onChange={(e) => setSearchInp(e.target.value)}
                 placeholder="جستجو در دیجیتال لند"
-                className="w-150 bg-[#f0f0f1] h-11  rounded-full pr-10 pl-4 placeholder:text-[15px] outline-0 focus:ring-1 focus:ring-gray-300 transition-all font-samim"
+                className="w-150 bg-[#f0f0f1] h-11 rounded-full pr-10 pl-4 placeholder:text-[15px] outline-0 focus:ring-1 focus:ring-gray-300 transition-all font-samim"
               />
             </div>
-            {/* <div className="absolute bg-gray-200 w-full h-25 rounded-md shadow-md hidden"> */}
-              {/* search results */}
-               {searchInp && (
-              <div className="absolute top-12 w-full bg-white border border-gray-200 shadow-xl rounded-xl p-3 max-h-72 overflow-y-auto animate-fadeIn">
 
-                {searchInp.length < 3 && (
-                  <p className="text-sm text-gray-400">Min 3 characters</p>
-                )}
-
-                {searchInp.length >= 3 && !searchResult && (
-                  <p className="text-sm text-gray-400">Searching...</p>
+            {/* search results */}
+            {searchInp && (
+              <div className="absolute top-12 w-full bg-white border border-gray-200 shadow-xl rounded-xl p-3 max-h-72 overflow-y-auto animate-fadeIn search-box">
+                {searchInp.length >= 3 && !searchResult && loading && (
+                  <p className="text-center text-gray-400 py-2 text-sm font-samim font-medium">
+                    در حال جستجو...
+                  </p>
                 )}
 
                 {categoryItems?.length > 0 && (
-                  <>
-                    <p className="text-xs text-gray-400 mt-2 mb-1">
-                      Categories
-                    </p>
-                    {categoryItems}
-                  </>
+                  <div className="flex flex-col w-full gap-3 mt-4">
+                    <h3 className="text-sm text-gray-800 font-samim font-medium">
+                      دسته بندی
+                    </h3>
+                    <div className="flex flex-col gap-2">{categoryItems}</div>
+                  </div>
                 )}
 
                 {productsItems?.length > 0 && (
-                  <>
-                    <p className="text-xs text-gray-400 mt-3 mb-1">
-                      Products
-                    </p>
-                    {productsItems}
-                  </>
+                  <div className="flex flex-col w-full gap-3 mt-4">
+                    <h3 className="text-sm text-gray-800 font-samim font-medium">
+                      محصولات
+                    </h3>
+                    <div className="flex flex-col gap-2">{productsItems}</div>
+                  </div>
                 )}
 
                 {searchResult === "notFound" && (
-                  <p className="text-sm text-gray-400">No results found</p>
+                  <p className="text-center text-gray-400 py-2 text-sm font-samim font-medium">
+                    نتیجه ای یافت نشد
+                  </p>
                 )}
               </div>
             )}
-            {/* </div> */}
 
             <div className="absolute top-1/2 -translate-y-1/2 px-4">
               <BiSearch className="text-xl text-gray-500" />
@@ -182,18 +192,18 @@ export default function DesktopNavbar() {
               to={"/profile"}
               className="text-gray-700  text-xl transition-colors"
             >
-                   <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              className="w-6 h-6 " 
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M12 2a5 5 0 015 5v1A5 5 0 017 8V7a5 5 0 015-5zm9.996 18.908C21.572 16.318 18.096 14 12 14c-6.095 0-9.572 2.318-9.996 6.908A1 1 0 003 22h18a1 1 0 00.996-1.092zM4.188 20c.728-2.677 3.231-4 7.812-4 4.58 0 7.084 1.323 7.812 4H4.188zM9 7a3 3 0 116 0v1a3 3 0 01-6 0V7z"
-                clipRule="evenodd"
-              />
-            </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                className="w-6 h-6 "
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M12 2a5 5 0 015 5v1A5 5 0 017 8V7a5 5 0 015-5zm9.996 18.908C21.572 16.318 18.096 14 12 14c-6.095 0-9.572 2.318-9.996 6.908A1 1 0 003 22h18a1 1 0 00.996-1.092zM4.188 20c.728-2.677 3.231-4 7.812-4 4.58 0 7.084 1.323 7.812 4H4.188zM9 7a3 3 0 116 0v1a3 3 0 01-6 0V7z"
+                  clipRule="evenodd"
+                />
+              </svg>
             </Link>
           ) : (
             <button
@@ -225,11 +235,14 @@ export default function DesktopNavbar() {
         className={`fixed left-0 right-0  z-30 ${isSubNavVisible ? "top-17" : "top-0"} bg-white border-b border-b-gray-200 w-full h-10 transition-all duration-300 ease-in-out`}
       >
         <div className="max-w-7xl  h-full flex items-center ">
-          <MegaMenu/>
+          <MegaMenu />
 
           <div className="ml-auto flex">
-            <div className="group relative mr-6 font-samim cursor-pointer py-2"
-            onClick={()=>{navigate('/')}}
+            <div
+              className="group relative mr-6 font-samim cursor-pointer py-2"
+              onClick={() => {
+                navigate("/");
+              }}
             >
               <h2 className="">خانه</h2>
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-teal-700 transition-all duration-300 group-hover:w-full "></span>
