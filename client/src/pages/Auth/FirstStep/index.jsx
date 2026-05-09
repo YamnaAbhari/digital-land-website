@@ -4,16 +4,28 @@ import notify from "../../../Utils/Notify";
 import { BsBack } from "react-icons/bs";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { BiArrowBack } from "react-icons/bi";
-import { useNavigate } from "react-router-dom";
-
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function FirstStep({
   handlePage,
   phoneNumber,
   handlePhoneNumber,
 }) {
+  const navigate = useNavigate();
 
-const navigate=useNavigate()
+  // back to previous page
+  const location = useLocation();
+
+  const from = location.state?.from || "/";
+
+  const handleBack = () => {
+    if (location.state?.from) {
+      navigate(location.state.from);
+    } else {
+      navigate("/");
+    }
+  };
+  //
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,7 +53,12 @@ const navigate=useNavigate()
         onSubmit={handleSubmit}
         className="flex flex-col  max-w-md w-full rounded-xl py-8 sm:px-8 px-4 bg-white space-y-8 font-samim ring-1 ring-gray-200 shadow-md"
       >
-        <div onClick={()=>navigate('/')} className="flex justify-end my-4 cursor-pointer"><BiArrowBack className="text-[22px] "/></div>
+        <div
+          onClick={handleBack}
+          className="flex justify-end my-4 cursor-pointer"
+        >
+          <BiArrowBack className="text-[22px] " />
+        </div>
         <div className="flex flex-col gap-3 ">
           <h1 className="text-2xl font-bold ">ورود | ثبت نام</h1>
           <p className=" text-gray-700 text-[14px]">
@@ -69,7 +86,7 @@ const navigate=useNavigate()
           onClick={() => handlePage("forgetPass")}
           className="text-teal-700 cursor-pointer text-center font-semibold text-[12px]"
         >
-         رمز عبور را فراموش کرده اید؟
+          رمز عبور را فراموش کرده اید؟
         </span>
       </form>
     </div>

@@ -43,7 +43,7 @@ export default function MobileProductCard({
           <img
             src={import.meta.env.VITE_BASE_FILE + image}
             alt={title}
-            className="w-50 h-35"
+            className="w-45 h-30"
           ></img>
           <div className="flex gap-1 ">{colorItems()}</div>
         </div>

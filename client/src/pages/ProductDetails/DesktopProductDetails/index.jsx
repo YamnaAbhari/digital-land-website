@@ -1,109 +1,4 @@
-// import React, { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
-// import FetchData from "../../../Utils/FetchData";
-// import Loading from "../../../Components/Loading";
-// import { colorMap } from "../../../data/colorMap";
-// // import Loading from "../../../Components/Loading";
 
-// const colorMapById={
-//   "69e10551eb9ef1a9c1e9287e":"#FFFFFF",
-//   "69e10551eb9ef1a9c1e9287f":"#000000",
-//   "69e10551eb9ef1a9c1e92880":"#FFC0CB",
-//   "69e10551eb9ef1a9c1e92881":"#5ec4ff",
-//   "69e10551eb9ef1a9c1e92882":"#57c257",
-//   "69e10551eb9ef1a9c1e92883":"#808080",
-//   "69e10551eb9ef1a9c1e92884":"#000080",
-//   "69e10551eb9ef1a9c1e92885":"#FFA500",
-//   "69e10551eb9ef1a9c1e92886":"#800080",
-//   "69e10551eb9ef1a9c1e92887":"#C0C0C0",
-//   "69e10551eb9ef1a9c1e92888":"#A52A2A"
-// }
-
-// export default function DesktopProductDetails() {
-//   const { id } = useParams();
-//   const [product, setProduct] = useState();
-//   const [productVariant, setProductVariant] = useState();
-//   const [currentImage, setCurrenImage] = useState(0);
-//   const [loading, setLoading] = useState(false);
-
-//   useEffect(()=>{
-//     window.scrollTo(0, 0);
-//   },[])
-//   useEffect(() => {
-//     (async () => {
-//       setLoading(true);
-//       const res = await FetchData(`products/${id}`);
-//       const productRes=res?.data[0]
-//       setProduct(productRes);
-//       setLoading(false);
-//       productRes?.productVariantIds?.forEach((item) => {
-//         if (item._id.toString() == id.toString()) {
-//           setProductVariant(item);
-//         }
-//       });
-
-//       if (!productVariant && productRes?.productVariantIds?.length) {
-//         setProductVariant(productRes?.productVariantIds[0]);
-//       }
-
-//     })();
-//   }, [id]);
-
-//   const imgItems = product?.images?.map((image, index) => {
-//    return <button key={index} onClick={()=>{setCurrenImage(index)}} className="w-25 h-25  rounded-xl overflow-hidden border  border-gray-200 transition transform shrink-0">
-//       <img
-//         src={import.meta.env.VITE_BASE_FILE + image}
-//         alt="تصویر یافت نشد"
-//         className=" border-gray-200"
-//       ></img>
-//     </button>;
-
-//   });
-
-//   const productVariantItems=product?.productVariantIds?.map(prv=>{
-//     console.log(prv)
-//    return <div key={prv.variantId} onClick={()=>{setProductVariant(prv)}} className={`w-5 h-5 rounded-full cursor-pointer border border-gray-200 `} style={{background:colorMapById[prv?.variantId]}}>
-//     {prv.variantId.updateAt}
-//    </div>
-
-//   })
-
-//   if (!product) return <Loading/>;
-//   return (
-//     <div className="mt-45 px-4 w-full flex gap-3">
-//       {/* product images */}
-//       <div>
-//         <div className=" flex flex-col items-center gap-2">
-//             <img src={import.meta.env.VITE_BASE_FILE+product?.images[currentImage]} className="w-150 "></img>
-//             <div className="flex gap-2">
-//                 {imgItems}
-//             </div>
-//         </div>
-//       </div>
-
-//       {/* product information */}
-//       <div className="w-full flex flex-col gap-2">
-//         {/* title */}
-//         <div className="flex flex-col gap-2">
-//          <h3 className="font-bold font-samim text-[16px] text-teal-600">{`${product?.brandId?.title} / ${product?.categoryId.title}`}</h3>
-//         <h2 className="font-bold font-samim text-[18px] text-gray-700">{product?.title}</h2>
-//         </div>
-
-//         <div className="w-full flex gap-2">
-//           {/* products variant */}
-//           <div>
-//               <div className="flex flex-wrap gap-2">
-//                   {productVariantItems}
-//                 </div>
-//           </div>
-
-//           {/* add to cart */}
-//           <div></div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
 
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -171,70 +66,6 @@ export default function DesktopProductDetails() {
     );
   });
 
-  // const productVariantItems=product?.productVariantIds?.map(prv=>{
-  //   console.log(prv)
-  //  return <div key={prv.variantId} onClick={()=>{setProductVariant(prv)}} className={`w-5 h-5 rounded-full cursor-pointer border border-gray-200 `} style={{background:colorMapById[prv?.variantId]}}>
-
-  //  </div>
-
-  // })
-
-  // const productVariants = product?.productVariantIds?.map((e) => {
-  //   const cartQuantity =
-  //     items?.find((item) => item._id == e._id)?.cartQuantity || 0;
-  //   return (
-  //     <div
-  //       key={e._id}
-  //       className={`grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs sm:text-sm px-3 py-2 rounded-xl border
-  //       ${
-  //         productVariant?._id === e._id
-  //           ? "border-indigo-500 bg-indigo-50"
-  //           : "border-gray-200 bg-gray-50"
-  //       }`}
-  //     >
-  //       <p className="text-gray-700">
-  //         Qty: <span className="font-medium">{e.quantity}</span>
-  //       </p>
-  //       <p className="text-gray-700">
-  //         Price: <span className="font-medium">{e.price}</span>
-  //       </p>
-  //       <p className="text-gray-700">
-  //         Off: <span className="font-medium">{e.discountPercent}%</span>
-  //       </p>
-  //       <p className="text-emerald-600 font-semibold">
-  //         Final: {e.priceAfterDiscount}
-  //       </p>
-  //       <p className="text-gray-500">Sold: {e.boughtCount}</p>
-  //       {cartQuantity == 0 ? (
-  //         <button
-  //           disabled={cartQuantity == e.quantity}
-  //           className="bg-blue-400 disabled:opacity-20 text-white rounded-lg px-3 py-2"
-  //           onClick={() => dispatch(addToCart({ ...e, productId: product }))}
-  //         >
-  //           Add
-  //         </button>
-  //       ) : (
-  //         <div className="flex items-center gap-3 ">
-  //           <button
-  //             className="bg-red-400 text-white rounded-lg px-3 py-2"
-  //             onClick={() => dispatch(removeFromCart(e._id))}
-  //           >
-  //             -
-  //           </button>
-  //           <span>{cartQuantity}</span>
-  //           <button
-  //             disabled={cartQuantity == e.quantity}
-  //             className="bg-green-400 disabled:opacity-20 text-white rounded-lg px-3 py-2"
-  //             onClick={() => dispatch(addToCart({ ...e, productId: product }))}
-  //           >
-  //             +
-  //           </button>
-  //         </div>
-  //       )}
-  //     </div>
-  //   );
-  // });
-  // ۱. بخش دایره‌های رنگی (بدون تغییر، فقط برای اطمینان)
 
   // color variant
   const productVariantItems = product?.productVariantIds?.map((prv) => {
@@ -354,7 +185,7 @@ export default function DesktopProductDetails() {
   if (!product) return <Loading />;
   return (
     <div className="flex justify-start mx-15">
-    <div className="mt-45 px-4 w-full flex gap-5">
+    <div className="mt-45 mb-20 px-4 w-full flex gap-5">
       {/* product images */}
       <div>
         <div className=" flex flex-col items-center gap-4">
@@ -408,17 +239,21 @@ export default function DesktopProductDetails() {
 
               <div className="flex justify-end">{selectedVariantData}</div>
             </div>
-
-            <div className="grid lg:grid-cols-3 grid-cols-2  gap-2 mt-8">
+            
+            <div className="flex flex-col gap-3 mt-8">
+              <h2 className="font-samim text-lg font-semibold">ویژگی ها</h2>
+            <div className="grid lg:grid-cols-3 grid-cols-2  gap-2 ">
               {informationItems}
             </div>
+            </div>
 
-            <div className="mt-8">
-              <p className="font-samim text-sm text-gray-600 font-semibold">{product?.description}</p>
+            <div className="mt-8 flex flex-col gap-2">
+              <h2 className="font-samim text-lg font-semibold">معرفی</h2>
+              <p className="font-samim text-sm text-gray-500 font-semibold">{product?.description}</p>
             </div>
           </div>
 
-          {/* add to cart */}
+          
         </div>
       </div>
     </div>
