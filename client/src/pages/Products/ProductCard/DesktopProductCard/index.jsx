@@ -17,35 +17,36 @@ export default function DesktopProductCard({
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
-  // const colorItems = () => {
-  //   if (!variantIds || variantIds.length === 0) return null;
-  //   const renderColors = variantIds.map((vr, index) => {
-  //     return (
-  //       <div
-  //         key={index}
-  //         title={vr.value}
-  //         className={`w-2 h-2 rounded-full ring ring-gray-300`}
-  //         style={{ backgroundColor: colorMap[vr.value] || [vr.value] }}
-  //       ></div>
-  //     );
-  //   });
-  //   return renderColors;
-  // };
 
-    const colorItems = () => {
-      if (!variantIds || variantIds.length === 0) return null;
-      const renderColors = variantIds.map((vr, index) => {
-        return (
-          <div
-            key={index}
-            title={vr.value}
-            className={`w-2 h-2 rounded-full ring ring-gray-300`}
-            style={{ background: colorMap[vr.value] || [vr.value] }}
-          ></div>
-        );
-      });
-      return renderColors;
-    };
+    // const colorItems = () => {
+    //   if (!variantIds || variantIds.length === 0) return null;
+    //   const renderColors = variantIds.map((vr, index) => {
+    //     return (
+    //       <div
+    //         key={index}
+    //         title={vr.value}
+    //         className={`w-2 h-2 rounded-full ring ring-gray-300`}
+    //         style={{ background: [vr.value]  }}
+    //       ></div>
+    //     );
+    //   });
+    //   return renderColors;
+    // };
+
+      const colorItems = () => {
+        if (!variantIds || variantIds.length === 0) return null;
+        const renderColors = variantIds.map((vr, index) => {
+          return (
+            <div
+              key={index}
+              title={vr.value}
+              className={`w-2 h-2 rounded-full ring ring-gray-300`}
+              style={{ background: colorMap[vr.value] || [vr.value] }}
+            ></div>
+          );
+        });
+        return renderColors;
+      };
   return (
     //product card
     <div
