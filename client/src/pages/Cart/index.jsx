@@ -17,7 +17,11 @@ export default function Cart() {
 
 console.log(items)
   const cartItems=items.map((item,index)=>{
-    return <div key={index} className='flex gap-4 border-b border-gray-200 '>
+    return <div  onClick={() =>
+          navigate(
+            `/product-details/${item.productId._id}/${item.productId.title.replace(' ','-')}`
+          )
+        }  key={index} className='flex gap-4 border-b border-gray-200'>
       <div className='flex flex-col gap-2 items-center mb-3'>
       <img className='w-28.5 h-28.5' src={import.meta.env.VITE_BASE_FILE+item.productId.images[0]} alt={item.productId.title.split(' ').slice(0,4).join(' ')}></img>
 

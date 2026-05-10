@@ -93,10 +93,10 @@ export default function Profile() {
     <div className="min-h-screen flex items-center justify-center px-4 ">
       <div className="flex flex-col items-center max-w-md w-full rounded-xl p-8  bg-white space-y-8 ring-1 ring-gray-200 shadow-md sm:mt-20">
         {/* update user section */}
-        <h1 className="text-2xl font-bold">Update Profile</h1>
+        <h1 className="text-2xl font-bold">پروفایل</h1>
         <form
           onSubmit={handleUpdate}
-          className="flex flex-col space-y-4 w-full"
+          className="flex flex-col space-y-4 w-full font-samim"
         >
           {/* full name input */}
           <input
@@ -111,14 +111,14 @@ export default function Profile() {
           <button
             disabled={userLoading}
             type="submit"
-            className="w-full h-11 bg-teal-700  text-white font-medium rounded-lg text-sm cursor-pointer hover:bg-teal-600 transition-all disabled:opacity-45"
+            className="w-full h-11 bg-teal-700  text-white font-medium  rounded-lg text-sm cursor-pointer hover:bg-teal-600 transition-all disabled:opacity-45"
           >
-            {userLoading ? "Updatting User..." : "Update User"}
+            {userLoading ? "بروزرسانی نام کاربری..." : "بروزرسانی نام کاربری"}
           </button>
         </form>
 
         {/* change password section */}
-        <h1 className="text-2xl font-bold">Change Password</h1>
+        <h1 className="text-2xl font-bold">تغییر رمز عبور</h1>
 
         <form
           onSubmit={changePassword}
@@ -130,9 +130,9 @@ export default function Profile() {
               type={passVisibility.oldPassword ? "text" : "password"}
               value={oldPassword}
               name="oldPassword"
-              placeholder="Old Password"
+              placeholder="رمز عبور قبلی"
               onChange={handleChange}
-              className="w-full h-11 ring-1 ring-gray-300 placeholder-gray-500 rounded-lg focus:ring-1 focus:ring-teal-700 transition-all outline-0 px-3 text-sm"
+              className="w-full h-11 ring-1 ring-gray-300 placeholder-gray-500 rounded-lg focus:ring-1 focus:ring-teal-700 transition-all outline-0 px-3 text-sm placeholder:text-[12px]"
             ></input>
 
             <button
@@ -151,9 +151,9 @@ export default function Profile() {
               type={passVisibility.newPassword ? "text" : "password"}
               value={newPassword}
               name="newPassword"
-              placeholder="New Password"
+              placeholder="رمز عبور جدید"
               onChange={handleChange}
-              className="w-full h-11 ring-1 ring-gray-300 placeholder-gray-500 rounded-lg focus:ring-1 focus:ring-teal-700 transition-all outline-0 px-3 text-sm"
+              className="w-full h-11 ring-1 ring-gray-300 placeholder-gray-500 rounded-lg focus:ring-1 focus:ring-teal-700 transition-all outline-0 px-3 text-sm placeholder:text-[12px]"
             ></input>
 
             <button
@@ -171,9 +171,9 @@ export default function Profile() {
               type={passVisibility.confirmPassword ? "text" : "password"}
               value={confirmPassword}
               name="confirmPassword"
-              placeholder="Confirm The New Password"
+              placeholder="تکرار رمز عبور جدید"
               onChange={handleChange}
-              className="w-full h-11 ring-1 ring-gray-300 placeholder-gray-500 rounded-lg focus:ring-1 focus:ring-teal-700 transition-all outline-0 px-3 text-sm"
+              className="w-full h-11 ring-1 ring-gray-300 placeholder-gray-500 rounded-lg focus:ring-1 focus:ring-teal-700 transition-all outline-0 px-3 text-sm placeholder:text-[12px]"
             ></input>
 
             <button
@@ -200,7 +200,7 @@ export default function Profile() {
             }
             className={`w-full h-11 bg-teal-700  text-white font-medium rounded-lg text-sm disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer  mt-4 ${passLoading ? "bg-teal-300 cursor-not-allowed" : "bg-teal-600 hover:bg-teal-700"} cursor-pointer`}
           >
-            {passLoading ? "Changing Password..." : "Change Password"}
+            {passLoading ? "تغییر رمز عبور..." : "تغییر رمز عبور"}
           </button>
         </form>
       </div>
