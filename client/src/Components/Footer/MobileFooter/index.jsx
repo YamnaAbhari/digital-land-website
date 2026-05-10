@@ -76,7 +76,7 @@ export default function MobileFooter() {
 
         {isOpen && (
           <ul className="flex flex-col gap-1.5">
-            {item.items.map((it,index) => {
+            {item.items.map((it, index) => {
               return (
                 <li key={index} className="text-sm text-gray-600 font-medium">
                   <a href="#">{it}</a>
@@ -98,8 +98,14 @@ export default function MobileFooter() {
         {footerSvg.map((item) => {
           return (
             <div key={item.id} className="flex flex-col items-center gap-2">
-              <img src={item.image} alt={item.alt} className="w-13.5 h-13.5 md:w-15 md:h-15"></img>
-              <span className="font-samim text-[10px] sm:text-sm font-medium text-gray-500 text-center">{item.title}</span>
+              <img
+                src={item.image}
+                alt={item.alt}
+                className="w-13.5 h-13.5 md:w-15 md:h-15"
+              ></img>
+              <span className="font-samim text-[10px] sm:text-sm font-medium text-gray-500 text-center">
+                {item.title}
+              </span>
             </div>
           );
         })}
@@ -109,15 +115,24 @@ export default function MobileFooter() {
 
       {/* contact us */}
       <div className="flex flex-col gap-2">
-        <h2 className="font-samim text-lg text-gray-500 font-semibold">ارتباط با ما</h2>
-      <div className="flex gap-3 mt-6">
-       <a className="cursor-pointer"> <BaleIcon color={'#a1a3a8'}/> </a>
-        <a className="cursor-pointer"> <InstagramIcon color={'#a1a3a8'}/></a>
-       <a className="cursor-pointer"> <LinkedInIcon color={'#a1a3a8'}/> </a>
-       <a className="cursor-pointer"> <TwitterIcon color={'#a1a3a8'}/> </a>
+        <h2 className="font-samim text-lg text-gray-500 font-semibold">
+          ارتباط با ما
+        </h2>
+        <div className="flex gap-3 mt-6">
+          <a className="cursor-pointer">
+            <BaleIcon color={"#a1a3a8"} />
+          </a>
+          <a className="cursor-pointer">
+            <InstagramIcon color={"#a1a3a8"} />
+          </a>
+          <a className="cursor-pointer">
+            <LinkedInIcon color={"#a1a3a8"} />
+          </a>
+          <a className="cursor-pointer">
+            <TwitterIcon color={"#a1a3a8"} />
+          </a>
+        </div>
       </div>
-      </div>
-
     </div>
   );
 }
