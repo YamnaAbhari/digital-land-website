@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function MobileNavbar({ onOpenSearch }) {
   const { token } = useSelector((state) => state.auth);
+  const cartLength=useSelector(state=>state.cart.items).length
   const navigate = useNavigate();
  
   return (
@@ -97,6 +98,8 @@ export default function MobileNavbar({ onOpenSearch }) {
             onClick={()=>{navigate('/cart')}}
             className="flex flex-col justify-center items-center py-1 cursor-pointer"
           >
+            <div className="relative">
+              {cartLength!==0 && <span className="absolute -top-2 -right-2 bg-teal-600 text-white text-xs px-1.5 py-0.5 rounded-full">{cartLength}</span>}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 24"
@@ -110,6 +113,7 @@ export default function MobileNavbar({ onOpenSearch }) {
                 d="M20 4h2V2h-3a1 1 0 00-1 1v1H3a1 1 0 00-.995 1.1l1 10A1 1 0 004 16h15a1 1 0 001-1V4zm-2 17a2 2 0 110-4 2 2 0 010 4zM5 21a2 2 0 110-4 2 2 0 010 4zm13-7V6H4.105l.8 8H18z"
               />
             </svg>
+            </div>
             <h4 className="text-[12px] font-samim font-medium">سبد خرید</h4>
           </a>
 
@@ -159,50 +163,4 @@ export default function MobileNavbar({ onOpenSearch }) {
 
 
 
-          {/* <Link to={token?'/profile':'/auth'} className="flex flex-col justify-center items-center py-1 cursor-pointer">
          
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              className="w-6 h-6 text-gray-500"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M12 2a5 5 0 015 5v1A5 5 0 017 8V7a5 5 0 015-5zm9.996 18.908C21.572 16.318 18.096 14 12 14c-6.095 0-9.572 2.318-9.996 6.908A1 1 0 003 22h18a1 1 0 00.996-1.092zM4.188 20c.728-2.677 3.231-4 7.812-4 4.58 0 7.084 1.323 7.812 4H4.188zM9 7a3 3 0 116 0v1a3 3 0 01-6 0V7z"
-                clipRule="evenodd"
-              />
-            </svg>
-
-            <h4 className="text-[12px] font-samim font-medium">پروفایل</h4>
-          </Link> */}
-
-                {/* {token ? (
-                      <Link
-                        to={"/profile"}
-                        className="text-gray-700  text-xl transition-colors"
-                      >
-                        <CgProfile className="cursor-pointer text-[23px]" />
-                      </Link>
-                    ) : (
-                      <button
-                        onClick={() => navigate("/auth")}
-                        className="h-10 flex flex-row items-center gap-2 px-4 rounded-md  ring-1 ring-gray-300 cursor-pointer"
-                      >
-                        <div>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            className="w-6 h-6 text-gray-700"
-                            fill="currentColor"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              clipRule="evenodd"
-                              d="M16 15h-2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v2h2V7a4 4 0 00-4-4H6a4 4 0 00-4 4v10a4 4 0 004 4h6a4 4 0 004-4v-2zm6-4H9.414l2.293-2.293-1.414-1.414-4 4a1 1 0 000 1.414l4 4 1.414-1.414L9.414 13H22v-2z"
-                            />
-                          </svg>
-                        </div>
-                        <p className="font-samim font-bold text-[14px]">ورود | ثبت نام</p>
-                      </button>
-                    )} */}

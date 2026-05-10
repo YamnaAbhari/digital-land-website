@@ -17,6 +17,8 @@ export default function DesktopNavbar() {
   const [isSubNavVisible, setIsSubNavVisible] = useState(true);
   const lastScrollY = useRef(0);
 
+  const cartLength=useSelector(state=>state.cart.items).length
+
   useEffect(() => {
     (async () => {
       if (searchInp.length < 3) return;
@@ -168,9 +170,11 @@ export default function DesktopNavbar() {
         </div>
 
         <div className="flex flex-row-reverse items-center gap-5">
-          <div>
+          {/* <div> */}
             {/* Cart Icon */}
-            <Link to={"/cart"}>
+            <div onClick={()=>{navigate('/cart')}} className="relative">
+            {cartLength!==0 && <span className="absolute -top-2 -right-2 bg-teal-600 text-white text-xs px-1.5 py-0.5 rounded-full">{cartLength}</span>}
+            <div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -183,8 +187,9 @@ export default function DesktopNavbar() {
                   d="M20 4h2V2h-3a1 1 0 00-1 1v1H3a1 1 0 00-.995 1.1l1 10A1 1 0 004 16h15a1 1 0 001-1V4zm-2 17a2 2 0 110-4 2 2 0 010 4zM5 21a2 2 0 110-4 2 2 0 010 4zm13-7V6H4.105l.8 8H18z"
                 />
               </svg>
-            </Link>
-          </div>
+              </div>
+            </div>
+          {/* </div> */}
 
           {/* Login & Register Button */}
           {token ? (
