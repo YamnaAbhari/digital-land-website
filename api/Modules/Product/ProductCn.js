@@ -11,6 +11,9 @@ export const getAll = catchAsync(async (req, res, next) => {
       ...(req.query?.search
         ? { title: { $regex: req.query.search, $options: "i" } }
         : {}),
+      // ...(req.query?.brandId
+      //   ? { brandId: req.query.brandId } 
+      //   : {}),
       ...(req.role == "admin" || req.role == "superAdmin"
         ? {}
         : { isPublished: true }),
@@ -29,9 +32,7 @@ export const getAll = catchAsync(async (req, res, next) => {
 });
 export const getOne = catchAsync(async (req, res, next) => {
   const features = new ApiFeatures(Product, req.query, req.role)
-    .addManualFilters(
-     { _id: req.params.id }
-    )
+    .addManualFilters({ _id: req.params.id })
     .filter()
     .sort()
     .limitFields()

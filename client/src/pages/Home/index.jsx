@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import FetchData from "../../Utils/FetchData";
 import MainSlider from "./MainSlider";
-import Discountproduct from "./DiscountProduct";
+import DiscountProduct from "./DiscountProduct";
 import CategorySection from "./CategorySection";
+import PopularBrands from "./PopularBrands";
 
 export default function Home() {
   return(
   <>
   <MainSlider/>
-  <Discountproduct/>
+  <DiscountProduct/>
   <CategorySection/>
+  <PopularBrands/>
   </>
   )
 }

@@ -63,7 +63,7 @@ export default function Profile() {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",
-        Authorization: `Bearer`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ oldPassword, newPassword }),
     });

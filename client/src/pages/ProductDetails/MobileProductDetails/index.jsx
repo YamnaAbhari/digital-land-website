@@ -24,13 +24,10 @@ export default function MobileProductDetails() {
   const location = useLocation();
 
 const handleGoToCart = () => {
-  // چک می‌کنیم کاربر لاگین هست یا نه
   if (!token) {
-    // آدرس صفحه فعلی (جزئیات محصول) رو به صفحه لاگین می‌فرستیم
-    navigate('/auth', { state: { from: location.pathname } });
+     navigate('/auth', { state: { from: location.pathname } });
   } else {
-    // اگر لاگین بود، مستقیم به سبد خرید بره
-    navigate('/cart');
+ navigate('/cart');
   }
 };
   const formattedPrice = (value) => {

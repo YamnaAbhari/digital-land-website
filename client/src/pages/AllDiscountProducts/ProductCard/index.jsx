@@ -20,7 +20,6 @@ export default function ProductCard({
     <div>
       {isMobile ? (
         <MobileProductCard
-        //   variantIds={variantIds}
           image={image}
           title={title}
           price={price}
@@ -30,7 +29,6 @@ export default function ProductCard({
         />
       ) : (
         <DesktopProductCard
-        //   variantIds={variantIds}
           image={image}
           title={title}
           price={price}

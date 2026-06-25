@@ -1,19 +1,10 @@
-// import React from 'react'
 
-// export default function ProductsFilters() {
-//   return (
-//     <div></div>
-//   )
-// }
 
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import MobilePriceFilter from "../PriceFilter/MobilePriceFilter";
-import { FiFilter } from "react-icons/fi";
 import FilterIcon from "../../../assets/svg/FilterIcon";
-import Arrow from "../../../assets/svg/Arrow";
 
 export default function ProductsFilters({ openFilterBox }) {
   return (

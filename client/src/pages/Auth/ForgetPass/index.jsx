@@ -81,7 +81,7 @@ export default function ForgetPass({ handlePage }) {
     }
 
     const result = await FetchData("auth/forget-password", {
-      meyhod: "POST",
+      method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ phoneNumber, code, newPassword }),
     });

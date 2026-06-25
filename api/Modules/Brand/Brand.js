@@ -13,7 +13,7 @@ const brandRouter = Router();
 brandRouter
   .route("/")
   .get(getAllBrandValidator, handleValidationErrors, getAll)
-  .post(isAdmin, createBrandValidator, handleValidationErrors, create);
+  .post(createBrandValidator, handleValidationErrors, create);
 
 brandRouter
   .route("/:id")

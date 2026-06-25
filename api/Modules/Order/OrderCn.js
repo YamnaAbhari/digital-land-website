@@ -43,6 +43,7 @@ export const getOne = catchAsync(async (req, res, next) => {
   return res.status(200).json(result);
 });
 
+
 export const update = catchAsync(async (req, res, next) => {
   const { authority = null, userId = null, ...otherData } = req.body;
   const order = await Order.findByIdAndUpdate(req.params.id, otherData, {

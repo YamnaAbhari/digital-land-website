@@ -91,7 +91,7 @@ export const loginWithOtp = catchAsync(async (req, res, next) => {
 export const resendCode= catchAsync(async (req, res, next) => {
   const { phoneNumber } = req.body;
   const resultSms = sendAuthCode(phoneNumber);
-  if (!resultSms) {
+  if (!resultSms){
     return res.status(500).json({
       success: false,
       message: 'sms sending failed',

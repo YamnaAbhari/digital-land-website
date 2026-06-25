@@ -9,7 +9,7 @@ import DiscountIcon from "../../../assets/svg/DiscountIcon";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import DiscountSkeleton from "./DiscountSkeleton";
 
-export default function Discountproduct() {
+export default function DiscountProduct() {
   const [discountProducts, setDiscountProducts] = useState([]);
   const [isMobile, setIsMobile] = useState(false);
   const [isLoading, setIsLoading] = useState(true);

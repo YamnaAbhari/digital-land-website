@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import FetchData from "../../Utils/FetchData";
 import ProductCard from "./ProductCard";
 import { handleResize } from "../../Utils/handleResize";
-import MobileProductCardSkeletom from "./ProductCard/MobileProductCard/MobileProductCardSkeletom";
+import MobileProductCardSkeleton from "./ProductCard/MobileProductCard/MobileProductCardSkeleton";
 import DesktopProductCardSkeleton from "./ProductCard/DesktopProductCard/desktopProductCardSkeleton";
 import ProductsSort from "./ProductsSort";
 import DesktopPriceFilter from "./PriceFilter/DesktopPriceFilter";
@@ -19,8 +19,11 @@ export default function Products() {
   const [sort, setSort] = useState("-createdAt");
   const [page, setPage] = useState(1);
   const [productCount, setProductCount] = useState(0);
-  const { categoryId } = useParams();
   const itemsPerPage = 20;
+
+
+  const { categoryId } = useParams();
+  const {brandId}=useParams()
 
   // filter states
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -34,7 +37,7 @@ export default function Products() {
   const [isFilterBoxVisible, setIsFilterBoxVisible] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  const handleOpenFiterBox = () => {
+  const handleOpenFilterBox = () => {
     setIsFilterBoxVisible(true);
     setIsAnimating(true);
   };
@@ -50,8 +53,7 @@ export default function Products() {
     NoScroll(isFilterBoxVisible, isAnimating);
   }, [isFilterBoxVisible, isAnimating]);
 
-//
-
+  //
 
   useEffect(() => {
     handleResize(setIsMobileSize, 640);
@@ -61,7 +63,11 @@ export default function Products() {
 
   useEffect(() => {
     setIsLoading(true);
-    const apiUrl = `products?${categoryId !== "all" ? `categoryId=${categoryId}&` : ""}page=${page}&limit=${itemsPerPage}&sort=${sort}&populate=defaultProductVariantId,variantIds`;
+    const apiUrl = `products?${
+      categoryId && categoryId !== "all" ? `categoryId=${categoryId}&` : ""
+    }${
+      brandId ? `brandId=${brandId}&` : ""
+    }page=${page}&limit=${itemsPerPage}&sort=${sort}&populate=defaultProductVariantId,variantIds`;
 
     (async () => {
       try {
@@ -108,10 +114,10 @@ export default function Products() {
         setIsLoading(false);
       }
     })();
-  }, [page, sort, categoryId]);
+  }, [page, sort, categoryId, brandId]);
 
   useEffect(() => {
-    const filtered = allProducts.filter((pr) => {
+    const filtered = allProducts?.filter((pr) => {
       const finalPrice =
         pr?.defaultProductVariantId?.priceAfterDiscount ??
         pr?.defaultProductVariantId?.price ??
@@ -164,19 +170,15 @@ export default function Products() {
     },
     [priceInputValues],
   );
- 
+
   const resetPriceFilter = () => {
-  const [min, max] = overallPriceRange;
+    const [min, max] = overallPriceRange;
+    setPriceInputValues([String(min), String(max)]);
+    setCurrentFilterPrice([min, max]);
+    setPage(1);
+  };
 
-  // مقدار اولیه همان محدوده کلی
-  setPriceInputValues([String(min), String(max)]);
-  setCurrentFilterPrice([min, max]);
-
-  // بازگشت به صفحه 1
-  setPage(1);
-};
-
-  const productCards = filteredProducts.map((pr) => (
+  const productCards = filteredProducts?.map((pr) => (
     <ProductCard
       key={pr._id}
       variantIds={pr.variantIds}
@@ -192,7 +194,7 @@ export default function Products() {
 
   const skeleton = Array.from({ length: itemsPerPage }, (_, index) =>
     isMobileSize ? (
-      <MobileProductCardSkeletom key={index} />
+      <MobileProductCardSkeleton key={index} />
     ) : (
       <DesktopProductCardSkeleton key={index} />
     ),
@@ -216,7 +218,7 @@ export default function Products() {
             <ProductsSort sort={sort} setSort={setSort} />
             {hideFilterBox && (
               <div className="mt-2">
-                <ProductsFilters openFilterBox={handleOpenFiterBox} />
+                <ProductsFilters openFilterBox={handleOpenFilterBox} />
               </div>
             )}
             {hideFilterBox && isFilterBoxVisible == true && (

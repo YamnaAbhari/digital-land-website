@@ -23,6 +23,7 @@ export const getAll = catchAsync(async (req, res, next) => {
   return res.status(200).json(result);
 });
 
+
 export const getOne = catchAsync(async (req, res, next) => {
   const features = new ApiFeatures(User, req.query, req.role)
     .addManualFilters(
@@ -96,3 +97,5 @@ export const changePassword = catchAsync(async (req, res, next) => {
     message: "password set successfully",
   });
 });
+
+
