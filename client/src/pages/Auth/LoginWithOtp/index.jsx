@@ -6,6 +6,7 @@ import { login } from "../../../Store/AuthSlice";
 import OTPInput from "react-otp-input";
 import { useNavigate } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
+import Arrow from "../../../assets/svg/Arrow";
 
 export default function LoginWithOtp({ handlePage, phoneNumber }) {
   const [code, setCode] = useState("");
@@ -13,7 +14,7 @@ export default function LoginWithOtp({ handlePage, phoneNumber }) {
   const [resendDisabled, setResendDisabled] = useState(true);
   const [timer, setTimer] = useState(120);
   const dispatch = useDispatch();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   // Timer Effect: counts down when resendDisabled is true
   useEffect(() => {
@@ -74,12 +75,18 @@ export default function LoginWithOtp({ handlePage, phoneNumber }) {
         onSubmit={handleSubmit}
         className="flex flex-col items-center max-w-md w-full rounded-xl   bg-white space-y-6  p-8 font-samim ring-1 ring-gray-200 shadow-md"
       >
-        <div onClick={()=>navigate(-1)} className="flex justify-end w-full my-4 cursor-pointer"><BiArrowBack className="text-[22px] "/></div>
+        <div
+          onClick={() => navigate(-1)}
+          className="flex justify-end w-full my-4 cursor-pointer"
+        >
+          <BiArrowBack className="text-[22px] " />
+        </div>
         <div className="flex flex-col justify-end w-full space-y-3">
           <h1 className="text-2xl font-bold">کد تایید را وارد کنید</h1>
           <p className="font-light text-sm">
-            کد تایید برای شماره <span className="font-medium text-[14px]">{phoneNumber}</span> ارسال گردید.
-            
+            کد تایید برای شماره{" "}
+            <span className="font-medium text-[14px]">{phoneNumber}</span> ارسال
+            گردید.
           </p>
         </div>
 
@@ -92,18 +99,15 @@ export default function LoginWithOtp({ handlePage, phoneNumber }) {
             className="w-full h-11 ring-1 bg-gray-100 ring-gray-300 placeholder-gray-500 rounded-lg  px-3 text-sm outline-0 cursor-not-allowed"
           ></input>
 
-
           <OTPInput
             value={code}
             onChange={setCode}
             numInputs={6}
-                          containerStyle={{
-    direction: "ltr",
-    display: "flex",
-    justifyContent: "space-between",
-    
-   
-  }}
+            containerStyle={{
+              direction: "ltr",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
             inputStyle="w-[12%]! h-10 sm:w-[12%]! sm:h-11 text-center text-[14px] sm:text-[16px] font-semibold rounded-lg  ring-1 ring-gray-400 focus:ring-teal-700 outline-none transition-all select-none! user-select-none!"
             isInputNum={true}
             shouldAutoFocus={true}
@@ -121,6 +125,18 @@ export default function LoginWithOtp({ handlePage, phoneNumber }) {
           {loading ? "..." : "تایید"}
         </button>
 
+        <div
+          onClick={() => handlePage("password")}
+          className="flex w-full justify-start items-center pr-2 cursor-pointer"
+        >
+          <div className="flex items-center">
+            <h3 className="text-sm text-teal-600 font-bold leading-none">
+              ورود با رمز عبور
+            </h3>
+            <Arrow className="text-teal-600 inline-block" />
+          </div>
+        </div>
+
         {/* Resend Code Section */}
         <div className="text-center space-y-1">
           <button
@@ -133,13 +149,13 @@ export default function LoginWithOtp({ handlePage, phoneNumber }) {
           </button>
           {resendDisabled && (
             <span className="block text-gray-600 font-medium text-[12px]">
-             {formatTimer(timer)}  مانده تا دریافت مجدد کد 
+              {formatTimer(timer)} مانده تا دریافت مجدد کد
             </span>
           )}
         </div>
 
         <p className="text-sm text-gray-900">
-           شماره تلفن اشتباه است؟
+          شماره تلفن اشتباه است؟
           <span
             onClick={() => handlePage("firstStep")}
             className="mr-1 text-teal-500 cursor-pointer hover:text-teal-500 font-medium"
@@ -151,4 +167,3 @@ export default function LoginWithOtp({ handlePage, phoneNumber }) {
     </div>
   );
 }
-

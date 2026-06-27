@@ -45,7 +45,8 @@ export default function FirstStep({
       return;
     }
     notify("success", result.message);
-    handlePage(result.data.passwordExist ? "password" : "otp");
+    // handlePage(result.data.passwordExist ? "password" : "otp");
+    handlePage("otp");
   };
   return (
     <div className="min-h-screen flex items-center justify-center  px-4">
@@ -65,7 +66,7 @@ export default function FirstStep({
             برای ادامه، شماره تلفن خود را وارد کنید.
           </p>
         </div>
-        <div className=" space-y-4 w-full">
+        <div className=" space-y-4 w-full mb-5">
           <input
             id="phoneNumber"
             type="tel"
@@ -82,12 +83,6 @@ export default function FirstStep({
             ورود
           </button>
         </div>
-        <span
-          onClick={() => handlePage("forgetPass")}
-          className="text-teal-700 cursor-pointer text-center font-semibold text-[12px]"
-        >
-          رمز عبور را فراموش کرده اید؟
-        </span>
       </form>
     </div>
   );

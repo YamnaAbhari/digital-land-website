@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../../Store/AuthSlice";
 import { BiArrowBack } from "react-icons/bi";
+import Arrow from "../../../assets/svg/Arrow";
 
 export default function LoginWithPass({ handlePage, phoneNumber }) {
   const [password, setPassword] = useState("");
@@ -36,6 +37,18 @@ export default function LoginWithPass({ handlePage, phoneNumber }) {
     setLoading(false);
     dispatch(login(result.data))
   };
+
+  const resendCode = async () => {
+  const result = await FetchData("auth/resend-code", {
+    method: "POST",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify({ phoneNumber }),
+  });
+
+  notify(result.success ? "success" : "error", result.message);
+    handlePage('otp');
+  
+};
  
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
@@ -88,17 +101,49 @@ export default function LoginWithPass({ handlePage, phoneNumber }) {
         >
           {loading ? "..." : "تایید"}
         </button>
+           
+            {/* <span
+          onClick={() => handlePage("otp")}
+          className="text-teal-700 cursor-pointer text-center font-semibold text-[12px]"
+        >
+          ورود با رمز یک بار مصرف
+        </span>
 
          <span
           onClick={() => handlePage("forgetPass")}
           className="text-teal-700 cursor-pointer text-center font-semibold text-[12px]"
         >
           رمز عبور را فراموش کرده اید؟
-        </span>
+        </span> */}
+
+<div className="flex flex-col gap-2.5 w-full justify-start pr-2">
+            <div
+          onClick={resendCode}
+          className="cursor-pointer"
+        >
+          <div className="flex items-center">
+            <h3 className="text-sm text-teal-600 font-bold leading-none">
+              ورود با رمز یک بار مصرف
+            </h3>
+            <Arrow className="text-teal-600 inline-block" />
+          </div>
+        </div>
+
+          <div
+          onClick={() => handlePage("forgetPass")}
+          className="cursor-pointer"
+        >
+          <div className="flex items-center">
+            <h3 className="text-sm text-teal-600 font-bold leading-none">
+             فراموشی رمز عبور
+            </h3>
+            <Arrow className="text-teal-600 inline-block" />
+          </div>
+        </div>
+        </div>
 
       </form>
     </div>
   );
 }
 
-//password:yamna1234
