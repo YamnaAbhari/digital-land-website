@@ -4,24 +4,26 @@ import { sendAuthCode, verifyCode } from "../../Utils/smsHandler.js";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import Cart from "../Cart/CartMd.js";
+
 export const auth = catchAsync(async (req, res, next) => {
   const { phoneNumber } = req.body;
-  let user = await User.findOne({ phoneNumber });
-  if (!user || !user?.password) {
-    const resultSms = sendAuthCode(phoneNumber);
-    if (!resultSms) {
-      return res.status(500).json({
-        success: false,
-        message: resultSms.message,
-      });
-    }
+  const user = await User.findOne({ phoneNumber });
+
+  const resultSms = await sendAuthCode(phoneNumber); 
+
+  if (!resultSms || !resultSms.success) {
+    return res.status(500).json({
+      success: false,
+      message: resultSms?.message || "Error in send code", 
+    });
   }
+
   return res.status(200).json({
     success: true,
-    message: !user || !user?.password ? "Otp Code sent" : "Login With Password",
+    message: "Otp Code sent",
     data: {
-      userExist: user ? true : false,
-      passwordExist: user?.password ? true : false,
+      userExist: !!user,
+      passwordExist: !!user?.password,
     },
   });
 });
@@ -120,3 +122,7 @@ export const forgetPassword= catchAsync(async (req, res, next) => {
     message:"password changed successfully"
   })
 })
+
+
+
+
